@@ -1,0 +1,24 @@
+# Ruby
+*.gem
+.bundle
+.cache
+vendor/
+.ruby-version
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Advent of Code specific
+# Keep input files but ignore any temporary files
+*.tmp
+*.log
+
+# Test coverage
+coverage/
