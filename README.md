@@ -25,7 +25,7 @@ A Ruby project for solving Advent of Code 2025 puzzles.
 
 ## Getting Started
 
-1. **Create a new day**: Copy the `days/day00/` directory and rename it to the appropriate day (e.g., `day01/`)
+1. **Create a new day**: Run `ruby bin/create_day.rb <day_number>` (e.g., `ruby bin/create_day.rb 1`)
 
 2. **Update README**: Edit the `README.md` in the new day directory with the puzzle description and examples
 
@@ -52,6 +52,15 @@ ruby bin/run.rb 01 2
 
 # Run day 25, part 2
 ruby bin/run.rb 25 2
+```
+
+### Creating New Days
+
+```bash
+# Create a new day directory with boilerplate
+ruby bin/create_day.rb 2
+
+# This creates days/day02/ with all necessary files
 ```
 
 ### Running Tests
