@@ -1,0 +1,2 @@
+# Replace this with your actual Day XX Part 1 input
+# This is just a placeholder

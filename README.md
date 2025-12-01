@@ -8,12 +8,14 @@ A Ruby project for solving Advent of Code 2025 puzzles.
 ├── lib/
 │   └── utils.rb          # Shared utilities for parsing and common algorithms
 ├── days/
-│   └── day01/            # Each day has its own directory
-│       ├── part1.rb      # Solution for part 1
-│       ├── part2.rb      # Solution for part 2
-│       ├── input1.txt    # Puzzle input for part 1
-│       ├── input2.txt    # Puzzle input for part 2
-│       └── test.rb       # Unit tests with sample inputs
+│   ├── day00/            # Template directory (copy this for new days)
+│   │   ├── README.md     # Puzzle description and examples
+│   │   ├── part1.rb      # Solution for part 1
+│   │   ├── part2.rb      # Solution for part 2
+│   │   ├── input1.txt    # Puzzle input for part 1
+│   │   ├── input2.txt    # Puzzle input for part 2
+│   │   └── test.rb       # Unit tests with sample inputs
+│   └── day01/            # Day 1 solutions
 ├── test/
 │   └── test_utils.rb     # Tests for utility functions
 ├── bin/
@@ -23,17 +25,19 @@ A Ruby project for solving Advent of Code 2025 puzzles.
 
 ## Getting Started
 
-1. **Create a new day**: Copy the `days/day01/` directory and rename it to the appropriate day (e.g., `day02/`)
+1. **Create a new day**: Copy the `days/day00/` directory and rename it to the appropriate day (e.g., `day01/`)
 
-2. **Add puzzle input**: Replace the content in `input1.txt` and `input2.txt` with your actual puzzle input
+2. **Update README**: Edit the `README.md` in the new day directory with the puzzle description and examples
 
-3. **Implement solutions**: Edit `part1.rb` and `part2.rb` to solve the puzzles. Each file should contain a class with a `solve(input)` method
+3. **Add puzzle input**: Replace the content in `input1.txt` and `input2.txt` with your actual puzzle input
 
-4. **Write tests**: Update `test.rb` with sample inputs and expected outputs for testing
+4. **Implement solutions**: Edit `part1.rb` and `part2.rb` to solve the puzzles. Each file should contain a class with a `solve(input)` method
 
-5. **Run tests**: Execute `ruby days/day01/test.rb` to verify your solutions work with sample data
+5. **Write tests**: Update `test.rb` with sample inputs and expected outputs for testing
 
-6. **Run with puzzle input**: Use `ruby bin/run.rb 01 1` to get the answer for submission
+6. **Run tests**: Execute `ruby days/day01/test.rb` to verify your solutions work with sample data
+
+7. **Run with puzzle input**: Use `ruby bin/run.rb 01 1` to get the answer for submission
 
 ## Usage
 
@@ -56,7 +60,7 @@ ruby bin/run.rb 25 2
 # Test utilities
 ruby test/test_utils.rb
 
-# Test a specific day
+# Test a specific day (e.g., day 1)
 ruby days/day01/test.rb
 ```
 
