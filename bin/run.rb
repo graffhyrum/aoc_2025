@@ -43,9 +43,14 @@ def main
 
   elapsed_ms = ((end_time - start_time) * 1000).round(2)
 
+  # Save result to output file
+  output_file = "#{day_dir}/output#{part}.txt"
+  File.write(output_file, result.to_s)
+
   puts "Day #{day}, Part #{part}:"
-  puts "Result: #{result}"
+  puts result  # Print result on its own line for easy copy/paste
   puts "Time: #{elapsed_ms}ms"
+  puts "💾 Result saved to #{output_file}"
 rescue => e
   puts "Error: #{e.message}"
   exit 1
