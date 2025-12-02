@@ -161,7 +161,7 @@ class AOCNavigator
   end
 
   def run_part(part)
-    solution_file = @days_dir / "day#{@current_day}" / "part#{part}.rb"
+    solution_file = @days_dir / "day#{@current_day}" / "solution.rb"
     input_file = @days_dir / "day#{@current_day}" / "input#{part}.txt"
 
     unless solution_file.exist?
@@ -184,9 +184,10 @@ class AOCNavigator
       input = File.read(input_file)
 
       # Run the solution
-      class_name = "Part#{part}"
+      class_name = "Solver"
+      method_name = part == 1 ? "solve_one" : "solve_two"
       if Object.const_defined?(class_name)
-        result = Object.const_get(class_name).solve(input)
+        result = Object.const_get(class_name).send(method_name, input)
 
         # Print result on its own line for easy copy/paste
         puts result
@@ -238,10 +239,10 @@ class AOCNavigator
   end
 
   def create_template_files(day_dir, day)
-    # part1.rb
-    File.write(day_dir / 'part1.rb', <<~RUBY)
-      class Part1
-        def self.solve(input)
+    # solution.rb
+    File.write(day_dir / 'solution.rb', <<~RUBY)
+      class Solver
+        def self.solve_one(input)
           # Parse input as needed
           lines = input.strip.split("\\n")
 
@@ -250,13 +251,8 @@ class AOCNavigator
 
           result
         end
-      end
-    RUBY
 
-    # part2.rb
-    File.write(day_dir / 'part2.rb', <<~RUBY)
-      class Part2
-        def self.solve(input)
+        def self.solve_two(input)
           # Parse input as needed
           lines = input.strip.split("\\n")
 
@@ -271,20 +267,19 @@ class AOCNavigator
     # test.rb
     File.write(day_dir / 'test.rb', <<~RUBY)
       require 'minitest/autorun'
-      require_relative 'part1'
-      require_relative 'part2'
+      require_relative 'solution'
 
       class TestDay#{day} < Minitest::Test
-        def test_part1_sample
+        def test_solve_one_sample
           sample_input = ""
           expected = 0
-          assert_equal expected, Part1.solve(sample_input)
+          assert_equal expected, Solver.solve_one(sample_input)
         end
 
-        def test_part2_sample
+        def test_solve_two_sample
           sample_input = ""
           expected = 0
-          assert_equal expected, Part2.solve(sample_input)
+          assert_equal expected, Solver.solve_two(sample_input)
         end
       end
     RUBY

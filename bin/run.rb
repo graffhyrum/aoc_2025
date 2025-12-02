@@ -21,24 +21,25 @@ def main
 
   # Load the solution file
   day_dir = format("days/day%02d", day)
-  part_file = "#{day_dir}/part#{part}.rb"
+  solution_file = "#{day_dir}/solution.rb"
 
-  unless File.exist?(part_file)
-    puts "Solution file not found: #{part_file}"
+  unless File.exist?(solution_file)
+    puts "Solution file not found: #{solution_file}"
     exit 1
   end
 
-  require_relative "../#{part_file}"
+  require_relative "../#{solution_file}"
 
   # Load input
   input = Utils.read_input(day, part)
 
   # Get the solution class
-  solution_class = Object.const_get("Part#{part}")
+  solution_class = Object.const_get("Solver")
+  method_name = part == 1 ? :solve_one : :solve_two
 
   # Time and run the solution
   start_time = Time.now
-  result = solution_class.solve(input)
+  result = solution_class.send(method_name, input)
   end_time = Time.now
 
   elapsed_ms = ((end_time - start_time) * 1000).round(2)

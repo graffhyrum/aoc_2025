@@ -12,8 +12,7 @@
 ├── days/
 │   ├── day00/            # Template directory (copy this for new days)
 │   │   ├── README.md     # Puzzle description and examples
-│   │   ├── part1.rb      # Solution for part 1
-│   │   ├── part2.rb      # Solution for part 2
+│   │   ├── solution.rb   # Solution class with solve_one and solve_two methods
 │   │   ├── input1.txt    # Puzzle input for part 1
 │   │   ├── input2.txt    # Puzzle input for part 2
 │   │   ├── output1.txt   # Solution output for part 1 (auto-generated)
@@ -37,7 +36,7 @@
 
 3. **Add puzzle input**: Replace the content in `input1.txt` and `input2.txt` with your actual puzzle input
 
-4. **Implement solutions**: Edit `part1.rb` and `part2.rb` to solve the puzzles. Each file should contain a class with a `solve(input)` method
+4. **Implement solutions**: Edit `solution.rb` to solve the puzzles. The file should contain a class with `solve_one(input)` and `solve_two(input)` methods
 
 5. **Write tests**: Update `test.rb` with sample inputs and expected outputs for testing
 
@@ -135,7 +134,7 @@ ruby bin/aoc.rb --create 2
 ruby bin/create_day.rb 2
 
 # This creates days/day02/ with all necessary files:
-# - part1.rb and part2.rb (solution templates)
+# - solution.rb (solution template with Day02 class)
 # - input1.txt and input2.txt (input files)
 # - output1.txt and output2.txt (result files, auto-populated when running solutions)
 # - test.rb (test template)
@@ -157,15 +156,25 @@ ruby bin/aoc.rb --day 1 --test
 
 ## Solution Template
 
-Each part file should follow this structure:
+Each day's `solution.rb` file should follow this structure:
 
 ```ruby
-class Part1  # or Part2
-  def self.solve(input)
+class Solver
+  def self.solve_one(input)
     # Parse input as needed
     lines = input.strip.split("\n")
 
-    # Your solution logic here
+    # Your solution logic for part 1 here
+    result = lines.length
+
+    result
+  end
+
+  def self.solve_two(input)
+    # Parse input as needed
+    lines = input.strip.split("\n")
+
+    # Your solution logic for part 2 here
     result = lines.length
 
     result
@@ -195,10 +204,16 @@ This project uses Minitest for unit testing. Tests should include:
 Example test:
 
 ```ruby
-def test_part1_sample
+def test_solve_one_sample
   sample_input = "sample\ninput\nhere"
   expected = 42
-  assert_equal expected, Part1.solve(sample_input)
+  assert_equal expected, Solver.solve_one(sample_input)
+end
+
+def test_solve_two_sample
+  sample_input = "sample\ninput\nhere"
+  expected = 42
+  assert_equal expected, Solver.solve_two(sample_input)
 end
 ```
 
