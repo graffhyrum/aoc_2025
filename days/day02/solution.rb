@@ -1,47 +1,43 @@
 class Solver
   def self.solve_one(input)
-    # Parse input as needed
-    ranges = input.strip.split(",")
-    doubles = []
-    ranges.each do |this_range_str|
-      start, end_val = this_range_str.split('-').map(&:to_i)
+    invalid_ids = []
+    parse_ranges(input).each do |start, end_val|
+      # Impossible to split any member of a range that all have an odd length
       if start.to_s.length % 2 == 1 && start.to_s.length == end_val.to_s.length
         next
       end
       (start..end_val).each do |id|
-        this_len = id.to_s.length
-        if this_len % 2 != 0
-          next
-        end
-        front = id.to_s[0, this_len / 2]
-        back = id.to_s[this_len/2,this_len]
-        if front == back
-          doubles.push id
-        end
+        str = id.to_s
+        len = str.length
+        next if len.odd?
+        half = len / 2
+        invalid_ids << id if str[0, half] == str[half, half]
       end
     end
-    doubles.map(&:to_i).sum
+    invalid_ids.sum
   end
 
   def self.solve_two(input)
-    ranges = input.strip.split(",")
-    dupes = Set.new()
-    ranges.each do | this_range_str|
-      start, end_val = this_range_str.split('-').map(&:to_i)
+    invalid_ids = Set.new
+    parse_ranges(input).each do |start, end_val|
       (start..end_val).each do |id|
-        if dupes.include?(id)
-          next
-        end
-        id_len = id.to_s.length
-        half = (id_len / 2).floor
-        (1..half).select {|i| id_len % i == 0} .reverse.each do |n|
-          id_segments = id.to_s.chars.each_slice(n).map(&:join)
-          if id_segments.uniq.length == 1
-            dupes.add? id
+        next if invalid_ids.include?(id)
+        str = id.to_s
+        len = str.length
+        half = len / 2
+        (1..half).select { |n| len % n == 0 }.each do |segment_len|
+          segments = str.chars.each_slice(segment_len).map(&:join)
+          if segments.uniq.length == 1
+            invalid_ids << id
+            break # No need to check further divisors for this ID
           end
         end
       end
     end
-    dupes.sum
+    invalid_ids.sum
+  end
+
+  def self.parse_ranges(input)
+    input.strip.split(",").map { |r| r.split('-').map(&:to_i) }
   end
 end
