@@ -24,12 +24,24 @@ class Solver
   end
 
   def self.solve_two(input)
-    # Parse input as needed
-    lines = input.strip.split("\n")
-
-    # Your solution logic here
-    result = lines.length
-
-    result
+    ranges = input.strip.split(",")
+    dupes = Set.new()
+    ranges.each do | this_range_str|
+      start, end_val = this_range_str.split('-').map(&:to_i)
+      (start..end_val).each do |id|
+        if dupes.include?(id)
+          next
+        end
+        id_len = id.to_s.length
+        half = (id_len / 2).floor
+        (1..half).select {|i| id_len % i == 0} .reverse.each do |n|
+          id_segments = id.to_s.chars.each_slice(n).map(&:join)
+          if id_segments.uniq.length == 1
+            dupes.add? id
+          end
+        end
+      end
+    end
+    dupes.sum
   end
 end
