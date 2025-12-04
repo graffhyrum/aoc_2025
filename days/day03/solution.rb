@@ -1,51 +1,41 @@
 class Solver
   def self.solve_one(input)
-    # Parse input as needed
-    lines = input.strip.split("\n")
-
-    # Each line is a row of batteries
-    # Find the highest number that can be made with
-    # two non-sequential digits
-    # Two pointers, start from the back.
-    # Calculate total sum of best values
-    result = lines.map do |line|
-      bank_ints = line.chars.map(&:to_i)
-      last = bank_ints.length - 1
-      left = 0
-      right = 1
-      bank_ints.each_with_index do |val, idx|
-        # find highest tens
-        if idx == last
-          next # skip last digit
-        elsif val == 9
-          left = idx
-          right = idx + 1
-          break
-        elsif val > bank_ints[left]
-          left = idx
-          right = idx + 1
-        end
-      end
-      idx = right + 1
-      while idx <= last do
-        next_val = bank_ints[idx]
-        if next_val > bank_ints[right]
-          right = idx
-        end
-        idx += 1
-      end
-      [bank_ints[left], bank_ints[right]].join.to_i
-    end.sum
-    result
+    solve(input, 2)
   end
 
   def self.solve_two(input)
-    # Parse input as needed
-    lines = input.strip.split("\n")
+    solve(input, 12)
+  end
 
-    # Your solution logic here
-    result = lines.length
+  def self.solve(input, num_batteries)
+    input.strip.split("\n").sum { |line| find_best_number(line, num_batteries) }
+  end
 
-    result
+  private
+
+  def self.find_best_number(line, num_batteries)
+    digits = line.chars.map(&:to_i)
+    return 0 if digits.length < num_batteries
+
+    selected_positions = find_optimal_positions(digits, num_batteries)
+    selected_positions.map { |pos| digits[pos] }.join.to_i
+  end
+
+  def self.find_optimal_positions(digits, num_batteries)
+    positions = []
+    search_start = 0
+
+    num_batteries.times do |i|
+      search_end = digits.length - (num_batteries - i)
+      slice = digits[search_start..search_end]
+
+      max_val = slice.max
+      next_pos = search_start + slice.index(max_val)
+
+      positions << next_pos
+      search_start = next_pos + 1
+    end
+
+    positions
   end
 end

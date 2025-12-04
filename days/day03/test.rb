@@ -32,9 +32,9 @@ class TestDay03 < Minitest::Test
     assert_equal expected, Solver.solve_one(input)
   end
 
-  # def test_solve_two_sample
-  #   sample_input = ""
-  #   expected = 0
-  #   assert_equal expected, Solver.solve_two(sample_input)
-  # end
+  def test_solve_two_sample
+    sample_input = "987654321111111\n811111111111119\n234234234234278\n818181911112111"
+    expected = 3121910778619
+    assert_equal expected, Solver.solve_two(sample_input)
+  end
 end
