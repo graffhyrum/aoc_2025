@@ -37,7 +37,6 @@ class Solver
       [bank_ints[left], bank_ints[right]].join.to_i
     end.sum
     result
-    # 16816 - too low
   end
 
   def self.solve_two(input)
